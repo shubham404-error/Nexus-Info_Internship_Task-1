@@ -8,7 +8,7 @@ This project showcases a simple chatbot that can engage in natural language conv
 2. **Clone the Repository:** Clone the project's repository to your local machine using Git:
 
 ```
-git clone <repository_url>
+git clone https://github.com/shubham404-error/Nexus-Info_Internship_Task-1.git
 ```
 
 3. **Set Up Virtual Environment:** Create a virtual environment, and activate it:
