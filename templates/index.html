@@ -1,0 +1,92 @@
+<!-- FILEPATH: /c:/Users/ASUS/Desktop/internship/proj 1/templates/index.html -->
+<!--
+    This is the HTML template for a chatbot interface.
+    It includes a header, a container for displaying messages, a form for sending messages,
+    and a footer with attribution information.
+    The template uses Bootstrap for styling and jQuery for handling form submission and AJAX requests.
+    When a message is submitted, it is displayed in the message container and sent to the server for processing.
+    The server's response is then displayed in the message container as well.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+        #messages {
+            flex-grow: 1;
+            overflow-y: scroll;
+            padding: 10px;
+            margin: 20px;
+            padding: 20px;
+            border-color: #000;
+        }
+        .header, .footer {
+            background-color: #1abc9c;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        .footer {
+            flex-shrink: 0;
+        }
+        .container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group {
+            margin-top: auto;
+        }
+        .chat-logo {
+        height: 20px;
+        width: 20px;
+        vertical-align: middle;
+    }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Chatbot</h1>
+    </div>
+    <div class="container">
+        <ul id="messages"></ul>
+        <form id="messageForm" action="">
+            <div class="form-group">
+                <input id="m" autocomplete="off" class="form-control" /><button class="btn btn-primary">Send</button>
+            </div>
+        </form>
+    </div>
+    <div class="footer">
+        <p>Nexus Software - Winter Internship</p>
+    </div>
+    <script>
+        $(function () {
+            $('#messageForm').submit(function(e){
+                e.preventDefault();
+                var message = $('#m').val();
+                $('#messages').append($('<li>').html('<img class="chat-logo" src="https://raw.githubusercontent.com/shubham404-error/AIML-Project-Series/main/proj%202/man.png" alt="User Logo"> You: ' + message));
+                $.ajax({
+                    url: '/message',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ 'message': message }),
+                    success: function(response) {
+                        $('#messages').append($('<li>').html('<img class="chat-logo" src="https://raw.githubusercontent.com/shubham404-error/AIML-Project-Series/main/proj%202/logo.png" alt="Bot Logo"> Bot: ' + response.message));
+                    }
+                });
+                $('#m').val('');
+            });
+        });
+    </script>
+ 
+   
+</body>
+</html>
